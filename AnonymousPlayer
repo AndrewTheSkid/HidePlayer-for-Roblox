@@ -65,7 +65,7 @@ if simulationradius then
 game:GetService("RunService").Heartbeat:Connect(function()
 setsimulationradius(1/0,1/0)
 end) end
-wait(1)
+wait(2)
 local plr = game.Players.LocalPlayer;
 local chr = plr.Character;
 local hum = chr.Humanoid;
