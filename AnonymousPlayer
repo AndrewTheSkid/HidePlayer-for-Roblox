@@ -12,7 +12,7 @@
 --dont run a netless script before or after
 --wear something that someone else is wearing or just make your body one color
 --give credits to me!!
---end of the headless: line 68
+--end of the headless: line 67
 --end of hat universe: line 260
 
 
@@ -65,7 +65,7 @@ if simulationradius then
 game:GetService("RunService").Heartbeat:Connect(function()
 setsimulationradius(1/0,1/0)
 end) end
-
+wait(9)
 local plr = game.Players.LocalPlayer;
 local chr = plr.Character;
 local hum = chr.Humanoid;
