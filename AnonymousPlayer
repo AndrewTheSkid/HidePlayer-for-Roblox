@@ -12,6 +12,9 @@
 --dont run a netless script before or after
 --wear something that someone else is wearing or just make your body one color
 --give credits to me!!
+--end of the headless: line 68
+--end of hat universe: line 260
+
 
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "Notification";
@@ -25,12 +28,50 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
 Duration = 16;
 
+local lp = game:GetService "Players".LocalPlayer
+if lp.Character:FindFirstChild "Head" then
+    local char = lp.Character
+    char.Archivable = true
+    local new = char:Clone()
+    new.Parent = workspace
+    lp.Character = new
+    wait(2)
+    local oldhum = char:FindFirstChildWhichIsA "Humanoid"
+    local newhum = oldhum:Clone()
+    newhum.Parent = char
+    newhum.RequiresNeck = false
+    oldhum.Parent = nil
+    wait(2)
+    lp.Character = char
+    new:Destroy()
+    wait(1)
+    newhum:GetPropertyChangedSignal("Health"):Connect(
+        function()
+            if newhum.Health <= 0 then
+                oldhum.Parent = lp.Character
+                wait(1)
+                oldhum:Destroy()
+            end
+        end)
+    workspace.CurrentCamera.CameraSubject = char
+    if char:FindFirstChild "Animate" then
+        char.Animate.Disabled = true
+        wait(.1)
+        char.Animate.Disabled = false
+    end
+    lp.Character:FindFirstChild "Head":Destroy()
+end
+if simulationradius then
+game:GetService("RunService").Heartbeat:Connect(function()
+setsimulationradius(1/0,1/0)
+end) end
+
 local plr = game.Players.LocalPlayer;
 local chr = plr.Character;
 local hum = chr.Humanoid;
 local mov = {};
 local mov2 = {};
-
+ 
 --[[Network]]
 coroutine.resume(coroutine.create(function()
 	settings().Physics.AllowSleep = false;
@@ -46,7 +87,7 @@ coroutine.resume(coroutine.create(function()
 		end
 	end)
 end))
-
+ 
 function ftp(str)
     local pt = {};
     if str ~= 'me' and str ~= 'random' then
@@ -62,7 +103,7 @@ function ftp(str)
     end
     return pt;
 end
-
+ 
 for _, v in pairs(hum:GetAccessories()) do
 	local b = v.Handle;
 	b.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0);
@@ -89,7 +130,7 @@ for _, v in pairs(hum:GetAccessories()) do
 	table.insert(mov, a1);
 	table.insert(mov2, still);
 end
-
+ 
 local par = {};
 for _, v in pairs(mov) do
 	local parr = Instance.new('Part', workspace);
@@ -99,7 +140,7 @@ for _, v in pairs(mov) do
 	parr.CanCollide = false;
 	table.insert(par, parr);
 end
-
+ 
 local rotx = 0;
 local rotz = math.pi / 2;
 local height = 0;
@@ -113,11 +154,11 @@ game['Run Service'].RenderStepped:Connect(function()
 	rotx = rotx + speed / 100;
 	rotz = rotz + speed / 100;
 	l = (l >= 360 and 1 or l + speed);
-	
+ 
 	for i, v in pairs(par) do
 		v.CFrame = CFrame.new(chr.HumanoidRootPart.Position) * CFrame.fromEulerAnglesXYZ(0, math.rad(l + (360 / #par) * i + speed), 0) * CFrame.new(offset, 0, 0);
 	end
-	
+ 
 	if heighti == 1 then
 		height = height + speed / 100;
 	elseif heighti == 2 then
@@ -129,7 +170,7 @@ game['Run Service'].RenderStepped:Connect(function()
 	if height < -1 then
 		heighti = 1;
 	end
-	
+ 
 	if mode == 1 then
 		for _, v in pairs(mov) do
 			v.Position = Vector3.new(math.sin(rotx) * offset, 0, math.sin(rotz) * offset);
