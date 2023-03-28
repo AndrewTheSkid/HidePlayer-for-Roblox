@@ -10,8 +10,8 @@
 --dont run a netless script before or after
 --wear something that someone else is wearing or just make your body one color
 --give credits to me!!
---end of the headless: line 67
---end of hat universe: line 260
+--end of the headless: line 65
+--end of hat universe: line 258
 
 
 game:GetService("StarterGui"):SetCore("SendNotification", { 
